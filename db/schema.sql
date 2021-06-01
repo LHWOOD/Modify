@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS notspot_db;
+CREATE DATABASE notspot_db;

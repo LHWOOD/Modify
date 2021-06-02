@@ -2,9 +2,9 @@ const path = require("path");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
-const helper = require("./utils/Helpers");
+const helper = require("./Utils/Helpers");
 const routes = require("./Controllers");
-const sequelize = require("./config/Connection");
+const sequelize = require("./Config/Connection");
 require("dotenv").config();
 
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -36,5 +36,5 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log("Now listening"));
+  app.listen(PORT, () => console.log("Now listening GOLD LEADER"));
 });

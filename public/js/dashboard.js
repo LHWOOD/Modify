@@ -5,41 +5,19 @@ async function musicPlaylistHandler(event) {
   const artist = document.querySelector("#artist");
   const year = document.querySelector("#year");
 
-  const response1 = await fetch("/api/Dashboards", {
+  const response = await fetch("/api/Dashboards", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
-  }).then((res) => {
-    console.log(JSON.parse(res));
   });
-  console.log(response1);
+  if (response.ok) {
+    let json = await response.json();
+    console.log(json);
+  } else {
+    alert("HTTP-Error" + response.status);
+  }
+  console.log(response);
 }
 
 document
   .getElementById("getMusic")
   .addEventListener("click", musicPlaylistHandler);
-
-async function favListHandler(event) {
-  event.preventDefault();
-
-  const title = document.querySelector("#title").value;
-  const artist = document.querySelector("#artist").value;
-  const year = document.querySelector("#year").value;
-
-  const response = await fetch("/api/Dashboards", {
-    method: "POST",
-    body: JSON.stringify({
-      title,
-      artist,
-      year,
-    }),
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-  if (response.ok) {
-  } else {
-    alert("Failed to add song");
-  }
-}
-
-document.querySelector();

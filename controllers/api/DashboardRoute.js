@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Music } = require("../../Models");
+const { Music, User } = require("../../Models");
 
 // get all music //tested all good
 router.get("/", (req, res) => {

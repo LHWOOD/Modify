@@ -33,7 +33,9 @@
         >
           <ul class="navbar-nav m-3 mb-0">
             <li class="nav-item">
-              <a href="/dashboard" class="nav-link" href="#">Dashboard</a>
+              {{#if loggIn}}
+                <a href="/dashboard" class="nav-link" href="#">Dashboard</a>
+              {{/if}}
             </li>
             <li class="nav-item">
               <!-- THIS WILL CHANGE TO LOG OUT WHEN USER IS SIGNED IN MAKE SURE JAVASCRIPT HAS CLICK LISTENER TO DO IT -->

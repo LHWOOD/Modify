@@ -1,21 +1,27 @@
 body {
-  color: blueviolet;
   background-color: blueviolet;
 }
-
 .heading {
   margin-left: 46%;
 }
-
 .signupContainer {
   border-radius: 25px;
 }
-
 .newMusicTitle {
   margin-left: 2%;
 }
-
 .shareTab {
-  margin-left: 75%;
   border-radius: 25px;
+}
+.button {
+  margin-left: 2%;
+}
+.share {
+  margin-right: 5%;
+  padding: 0;
+}
+
+#animation-bg {
+  width: 100%;
+  height: 300%;
 }

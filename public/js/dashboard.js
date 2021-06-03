@@ -9,7 +9,7 @@ async function musicPlaylistHandler(event) {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   }).then((res) => {
-    console.log(res);
+    console.log(JSON.parse(res));
   });
   console.log(response1);
 }
@@ -17,3 +17,29 @@ async function musicPlaylistHandler(event) {
 document
   .getElementById("getMusic")
   .addEventListener("click", musicPlaylistHandler);
+
+async function favListHandler(event) {
+  event.preventDefault();
+
+  const title = document.querySelector("#title").value;
+  const artist = document.querySelector("#artist").value;
+  const year = document.querySelector("#year").value;
+
+  const response = await fetch("/api/Dashboards", {
+    method: "POST",
+    body: JSON.stringify({
+      title,
+      artist,
+      year,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  if (response.ok) {
+  } else {
+    alert("Failed to add song");
+  }
+}
+
+document.querySelector();

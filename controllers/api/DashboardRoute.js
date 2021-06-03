@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Music } = require("../../Models");
+const { Music, UserMusic } = require("../../Models");
 
 // get all music //tested all good
 router.get("/", (req, res) => {
@@ -38,4 +38,20 @@ router.get("/:id", (req, res) => {
     });
 });
 
-module.exports = router;
+// get user music
+router.get("/", (req, res) => {
+  UserMusic.findOne({
+    where: {
+      id: req.params.id,
+    },
+  }).then((userData) => {
+    if (!userData) {
+      res.status(400).json({
+        message: "No music found",
+      });
+      return;
+    }
+  });
+});
+
+router.module.exports = router;

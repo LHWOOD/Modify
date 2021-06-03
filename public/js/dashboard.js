@@ -5,15 +5,15 @@ async function musicPlaylistHandler(event) {
   const artist = document.querySelector("#artist");
   const year = document.querySelector("#year");
 
-  const response = await fetch("/api/Dashboards", {
+  const response1 = await fetch("/api/Dashboards", {
     method: "GET",
-    body: JSON.stringify({ title, artist, year }),
     headers: { "Content-Type": "application/json" },
+  }).then((res) => {
+    console.log(res);
   });
-  console.log(response);
-  return response.json();
+  console.log(response1);
 }
 
 document
-  .querySelector("#getMusic")
+  .getElementById("getMusic")
   .addEventListener("click", musicPlaylistHandler);

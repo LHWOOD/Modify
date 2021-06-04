@@ -22,6 +22,7 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
+    include: ["songs"],
   })
     .then((userData) => {
       if (!userData) {

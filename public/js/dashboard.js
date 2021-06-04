@@ -25,7 +25,6 @@ async function musicPlaylistHandler(event) {
       var tableBody = document.querySelectorAll("tbody")[0];
 
       let music = document.createElement("tr");
-      music.setAttribute("id", [i]);
 
       let likeBtnBox = document.createElement("th");
 
@@ -35,7 +34,6 @@ async function musicPlaylistHandler(event) {
       likeBtn.setAttribute("alt", "thumbs up icon");
       likeBtn.setAttribute("width", "20");
       likeBtn.setAttribute("height", "auto");
-      likeBtn.setAttribute("id", [i]);
 
       let title = document.createElement("td");
       let artist = document.createElement("td");
@@ -45,7 +43,8 @@ async function musicPlaylistHandler(event) {
       title.innerHTML = randomSong.title;
       artist.innerHTML = randomSong.artist;
       released.innerHTML = randomSong.year;
-
+      likeBtn.setAttribute("id", randomSong.id);
+      music.setAttribute("id", randomSong.id);
       randomPlaylist.push(randomSong);
 
       likeBtnBox.appendChild(likeBtn);
@@ -65,38 +64,54 @@ let json = JSON.parse(localStorage.getItem("json"));
 
 console.log(randomPlaylist);
 
-function addToFav(clicked_id) {
-  var tableBody = document.querySelectorAll("tbody")[1];
-  let randomID = Math.floor(Math.random() * 1000) + 10;
+async function addToFav(clicked_id) {
+  try {
+    const response = await fetch(`/api/Dashboards/${clicked_id}`, {
+      method: "PUT",
 
-  let music = document.createElement("tr");
-  music.setAttribute("id", randomID);
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // if (response.ok) {
+    //   document.location.reload;
+    // } else {
+    //   alert("Failed to update playlist");
+    // }
+  } catch (err) {
+    console.log(err);
+  }
+  // var tableBody = document.querySelectorAll("tbody")[1];
+  // let randomID = Math.floor(Math.random() * 1000) + 10;
 
-  let deleteBtnBox = document.createElement("th");
+  // let music = document.createElement("tr");
+  // music.setAttribute("id", randomID);
 
-  let deleteBtn = document.createElement("img");
-  deleteBtn.setAttribute("onclick", "deleteFromFav(this.id)");
-  deleteBtn.setAttribute("src", "/images/blackX.png");
-  deleteBtn.setAttribute("alt", "dislike icon");
-  deleteBtn.setAttribute("width", "20");
-  deleteBtn.setAttribute("height", "auto");
-  deleteBtn.setAttribute("id", randomID);
+  // let deleteBtnBox = document.createElement("th");
 
-  let title = document.createElement("td");
-  let artist = document.createElement("td");
-  let released = document.createElement("td");
+  // let deleteBtn = document.createElement("img");
+  // deleteBtn.setAttribute("onclick", "deleteFromFav(this.id)");
+  // deleteBtn.setAttribute("src", "/images/blackX.png");
+  // deleteBtn.setAttribute("alt", "dislike icon");
+  // deleteBtn.setAttribute("width", "20");
+  // deleteBtn.setAttribute("height", "auto");
+  // deleteBtn.setAttribute("id", randomID);
 
-  title.innerHTML = randomPlaylist[clicked_id].title;
-  artist.innerHTML = randomPlaylist[clicked_id].artist;
-  released.innerHTML = randomPlaylist[clicked_id].year;
+  // let title = document.createElement("td");
+  // let artist = document.createElement("td");
+  // let released = document.createElement("td");
 
-  deleteBtnBox.appendChild(deleteBtn);
-  music.appendChild(deleteBtnBox);
-  music.appendChild(title);
-  music.appendChild(artist);
-  music.appendChild(released);
+  // title.innerHTML = randomPlaylist[clicked_id].title;
+  // artist.innerHTML = randomPlaylist[clicked_id].artist;
+  // released.innerHTML = randomPlaylist[clicked_id].year;
 
-  tableBody.appendChild(music);
+  // deleteBtnBox.appendChild(deleteBtn);
+  // music.appendChild(deleteBtnBox);
+  // music.appendChild(title);
+  // music.appendChild(artist);
+  // music.appendChild(released);
+
+  // tableBody.appendChild(music);
 }
 
 function deleteFromFav(clicked_id) {

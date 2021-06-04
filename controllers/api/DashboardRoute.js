@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { use } = require(".");
 const { Music, User } = require("../../Models");
 
 // get all music //tested all good
@@ -30,6 +31,19 @@ router.get("/:id", (req, res) => {
         });
         return;
       }
+      res.json(userData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.put("/:id", (req, res) => {
+  console.log(req.session);
+  User.findByPk(req.session.user_id)
+    .then((userData) => {
+      userData.addSong(req.params.id);
       res.json(userData);
     })
     .catch((err) => {

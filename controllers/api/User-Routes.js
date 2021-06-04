@@ -15,6 +15,20 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/getSongs", (req, res) => {
+  User.findByPk(req.session.user_id).then((dbUser) => {
+    dbUser
+      .getSongs() // returns a list of the user's liked songs
+      .then((songsList) => {
+        res.json(songsList);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+});
+
 //get one user //tested all good
 router.get("/:id", (req, res) => {
   User.findOne({

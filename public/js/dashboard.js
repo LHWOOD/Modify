@@ -29,6 +29,8 @@ async function musicPlaylistHandler(event) {
       let likeBtnBox = document.createElement("th");
 
       let likeBtn = document.createElement("img");
+
+      likeBtn.classList.add("pointer");
       likeBtn.setAttribute("onclick", "addToFav(this.id)");
       likeBtn.setAttribute("src", "/images/thumbsupIcon.png");
       likeBtn.setAttribute("alt", "thumbs up icon");
@@ -81,37 +83,51 @@ async function addToFav(clicked_id) {
   } catch (err) {
     console.log(err);
   }
-  // var tableBody = document.querySelectorAll("tbody")[1];
-  // let randomID = Math.floor(Math.random() * 1000) + 10;
 
-  // let music = document.createElement("tr");
-  // music.setAttribute("id", randomID);
+  // console.log(`${}`);
+  try {
+    const response = await fetch("/api/Users/getSongs", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
 
-  // let deleteBtnBox = document.createElement("th");
+    if (response.ok) {
+      let userData = await response.json();
+      console.log(userData);
 
-  // let deleteBtn = document.createElement("img");
-  // deleteBtn.setAttribute("onclick", "deleteFromFav(this.id)");
-  // deleteBtn.setAttribute("src", "/images/blackX.png");
-  // deleteBtn.setAttribute("alt", "dislike icon");
-  // deleteBtn.setAttribute("width", "20");
-  // deleteBtn.setAttribute("height", "auto");
-  // deleteBtn.setAttribute("id", randomID);
+      for (i = 0; i < userData.length; i++) {
+        var tableBody = document.querySelectorAll("tbody")[1];
+        let randomID = Math.floor(Math.random() * 1000) + 10;
+        let music = document.createElement("tr");
+        music.setAttribute("id", randomID);
 
-  // let title = document.createElement("td");
-  // let artist = document.createElement("td");
-  // let released = document.createElement("td");
+        let deleteBtnBox = document.createElement("th");
+        let deleteBtn = document.createElement("img");
 
-  // title.innerHTML = randomPlaylist[clicked_id].title;
-  // artist.innerHTML = randomPlaylist[clicked_id].artist;
-  // released.innerHTML = randomPlaylist[clicked_id].year;
-
-  // deleteBtnBox.appendChild(deleteBtn);
-  // music.appendChild(deleteBtnBox);
-  // music.appendChild(title);
-  // music.appendChild(artist);
-  // music.appendChild(released);
-
-  // tableBody.appendChild(music);
+        deleteBtn.setAttribute("onclick", "deleteFromFav(this.id)");
+        deleteBtn.classList.add("pointer");
+        deleteBtn.setAttribute("src", "/images/blackX.png");
+        deleteBtn.setAttribute("alt", "dislike icon");
+        deleteBtn.setAttribute("width", "20");
+        deleteBtn.setAttribute("height", "auto");
+        deleteBtn.setAttribute("id", randomID);
+        let title = document.createElement("td");
+        let artist = document.createElement("td");
+        let released = document.createElement("td");
+        title.innerHTML = userData[i].title;
+        artist.innerHTML = userData[i].artist;
+        released.innerHTML = userData[i].year;
+        deleteBtnBox.appendChild(deleteBtn);
+        music.appendChild(deleteBtnBox);
+        music.appendChild(title);
+        music.appendChild(artist);
+        music.appendChild(released);
+        tableBody.appendChild(music);
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 function deleteFromFav(clicked_id) {

@@ -2,11 +2,10 @@ const path = require("path");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
-const helper = require("./Utils/Helpers");
-const routes = require("./Controllers");
-const sequelize = require("./Config/Connection");
-require("dotenv").config();
 
+const routes = require("./controllers");
+
+const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const app = express();
@@ -24,7 +23,7 @@ const sess = {
 
 app.use(session(sess));
 
-const hbs = exphbs.create({ helper });
+const hbs = exphbs.create();
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");

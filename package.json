@@ -2,12 +2,12 @@
   "name": "GoldLeader-Project-2",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "serverfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node Server.js",
+    "start": "node serverfile.js",
     "seed": "node seeds/seed.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon serverfile.js"
   },
   "keywords": [],
   "author": "",
